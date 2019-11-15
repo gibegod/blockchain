@@ -1,0 +1,112 @@
+<head>
+    <title>Sign up</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-image: url('https://wallpaperplay.com/walls/full/5/9/5/37696.jpg');
+            font-family: sans-serif;
+        }
+        h3 {
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .signup {
+            font: bold 15px sans-serif;
+        }
+
+        #botonsignup {
+            width: 25%;
+            font: 15px sans-serif;
+            border-radius: 5px;
+            border-style: solid;
+        }
+        .bloque {
+            width: 30%;
+            border: 1px solid #2f3640;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #ecf0f1;
+            margin: 150px auto;
+        }
+
+        .barra {
+            display: inline-block;
+            float: left;
+            margin: -150px auto;
+            border: 1px solid #2f3640;
+            width: 100%;
+            background-color: #ecf0f1
+        }
+
+        .opciones {
+            font: bold 20px sans-serif;
+            padding: 1px;
+            color: black;
+            padding: 0 8% 0 0;
+        }
+
+        .opcionesTitle {
+            font: bold 20px sans-serif;
+            padding: 1px;
+            color: black;
+            padding: 0 12% 0 0;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+{% block content %}
+<div class="barra">
+    <a class="opcionesTitle" href="{{ url_for('index') }}">Block-Romantic</a>
+    <a class="opciones" href="{{ url_for('index') }}">Home</a>
+    <a class="opciones" href="{{ url_for('login') }}">Log in</a>
+    <a class="opciones" href="{{ url_for('index') }}">About us</a>
+</div>
+<div class="bloque">
+    <div class="signup">
+        <h3>Sign up</h3>
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            {{ message }}
+        </div>
+        {% endfor %}
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.name.label() }}
+                {{ form.name(class="form-control", placeholder="Enter Username") }}<br>
+                {% for error in form.name.errors %}
+                <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div>
+                {{ form.email.label }}
+                {{ form.email(class="form-control", placeholder="Enter Email") }}<br>
+                {% for error in form.email.errors %}
+                <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div>
+                {{ form.password.label }}
+                {{ form.password(class="form-control", placeholder="Enter Password") }}<br>
+                {% for error in form.password.errors %}
+                <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div>
+                {{ form.submit(class="btn btn-primary", id="botonsignup") }}
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

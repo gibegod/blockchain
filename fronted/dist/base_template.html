@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<!--  <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">-->  
+    <style>
+        *{
+            font-family: sans-serif;
+        }
+        header{
+            text-align: center;
+            padding: 10px;
+        }
+        header h1{
+            font-weight: bold;
+            font-size: 50px;
+        }
+        header h4{
+            font-size: 17px;
+        }
+        .fijo {
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 25%,
+            rgba(255,255,255,0.2) 75%, rgba(255,255,255,0) 100%);
+            box-shadow: 0 0 25px rgba(0,0,0,0.1), inset 0 0 1px rgba(255,255,255,0.6);
+        }
+        h3{
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+        body{
+            background-image: url('https://wallpaperplay.com/walls/full/5/9/5/37696.jpg');
+        }
+        .bloque{
+            border-right: 2px solid black;
+            border-left: 2px solid black;
+            width: 80%;
+            margin: 0px auto;
+            background-color: transparent;
+        }
+        .barra{
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+        }
+        .opciones{
+            font:  bold 15px sans-serif;
+            border: 1px solid black;
+            padding: 1px;
+            color: #0c2461;
+            border-radius: 5px;
+        }
+        footer{
+            font-weight: bold;
+            clear: both;
+            padding: 15px;
+            border-top: 2px solid black;
+            text-align: center;
+        }
+        .registro, .login{
+            font: bold 15px sans-serif;
+        }
+        .boton{
+            font:  bold 15px sans-serif;
+            border-radius: 5px;
+            border-style: solid;
+            background-color: #78e08f;
+        }
+        #botonlogin{
+            width: 25%;
+        }
+        #botonsignup{
+            width: 25%;
+        }
+        input {
+            border-radius: 3px;
+            padding: 1%;
+        }
+        .user-info {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .user-info li {
+            display: inline-block;
+            margin: 0;
+            padding: 0 10px 0 0;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+        .columna{
+            width: 40%;
+            float: right;
+            border: 2px solid #2f3640;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .contenido{
+            padding: 5px;
+        }
+        .texto{
+            padding: 20px;
+            margin-bottom: 15px;
+            width: 62%;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<div class="bloque">
+    <div class="fijo">
+    <header>
+        <h1>Block-Romantic</h1>
+        <h4>"Best login ever seen" -My mom <3</h4>
+    </header>
+    <div class="barra">
+    <ul class="user-info">
+        {% if current_user.is_anonymous %}
+            <li><a class="opciones" href="{{ url_for('index') }}">Home</a></li>
+            <li> | </li>
+            <li><a class="opciones" href="{{ url_for('login') }}">Login</a></li>
+            <li> | </li>
+            <li><a class="opciones" href="{{ url_for('show_signup_form') }}">Signup</a></li>
+            <li> | </li>
+            <li><a class="opciones" href="https://wallpapercave.com/wp/wp2068399.jpg">JRR(10)</a></li>
+        {% else %}
+            <li><a class="opciones" href="{{ url_for('account') }}">Home(Account)</a></li>
+            <li><strong>{{ current_user.name }}</strong></li>
+            <li> | </li>
+            <li><a class="opciones" href="{{ url_for('logout') }}">Logout</a></li>
+            <li> | </li>
+            <li><a class="opciones" href="http://www.google.com.ar">Wallet</a></li>
+            <li> | </li>
+            <li><a class="opciones" href="http://www.google.com.ar">Transfers</a></li>
+        {% endif %}
+            <li> | </li>
+            <li><a class="opciones" href="{{ url_for('contract') }}">Contract</a></li>
+
+    </ul>
+    </div>
+    </div>
+    <div class="contenido">
+    {% block content %}{% endblock %}
+    </div>    
+    <footer>
+        Todos los derechos reservados.
+        Copyright 1999-2019</footer>
+</div>
+
+
+</body>
+</html>
