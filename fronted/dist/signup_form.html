@@ -20,57 +20,47 @@
             font: bold 15px sans-serif;
         }
 
-        #botonsignup {
-            width: 25%;
-            font: 15px sans-serif;
-            border-radius: 5px;
-            border-style: solid;
-        }
         .bloque {
             width: 30%;
             border: 1px solid #2f3640;
             border-radius: 10px;
-            padding: 10px;
+            padding: 20px;
             background-color: #ecf0f1;
-            margin: 150px auto;
-        }
-
-        .barra {
-            display: inline-block;
-            float: left;
-            margin: -150px auto;
-            border: 1px solid #2f3640;
-            width: 100%;
-            background-color: #ecf0f1
-        }
-
-        .opciones {
-            font: bold 20px sans-serif;
-            padding: 1px;
-            color: black;
-            padding: 0 8% 0 0;
-        }
-
-        .opcionesTitle {
-            font: bold 20px sans-serif;
-            padding: 1px;
-            color: black;
-            padding: 0 12% 0 0;
+            margin: 110px auto;
+            box-shadow: 2px 2px 5px 2px gray;
         }
 
         a:hover {
             text-decoration: none;
         }
+        nav{
+            box-shadow: 0px 2px 5px 2px gray;
+        }
     </style>
 </head>
 
 {% block content %}
-<div class="barra">
-    <a class="opcionesTitle" href="{{ url_for('index') }}">Block-Romantic</a>
-    <a class="opciones" href="{{ url_for('index') }}">Home</a>
-    <a class="opciones" href="{{ url_for('login') }}">Log in</a>
-    <a class="opciones" href="{{ url_for('index') }}">About us</a>
-</div>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="{{ url_for('index') }}">Block-Romantic</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('index') }}">Home </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('login') }}">Log in</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('index') }}">About us</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 <div class="bloque">
     <div class="signup">
         <h3>Sign up</h3>
@@ -82,28 +72,25 @@
         <form action="" method="post" novalidate>
             {{ form.hidden_tag() }}
             <div>
-                {{ form.name.label() }}
-                {{ form.name(class="form-control", placeholder="Enter Username") }}<br>
+                {{ form.name(class="form-control", placeholder="Username") }}<br>
                 {% for error in form.name.errors %}
                 <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             </div>
             <div>
-                {{ form.email.label }}
-                {{ form.email(class="form-control", placeholder="Enter Email") }}<br>
+                {{ form.email(class="form-control", placeholder="Email") }}<br>
                 {% for error in form.email.errors %}
                 <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             </div>
             <div>
-                {{ form.password.label }}
-                {{ form.password(class="form-control", placeholder="Enter Password") }}<br>
+                {{ form.password(class="form-control", placeholder="Password") }}<br>
                 {% for error in form.password.errors %}
                 <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             </div>
             <div>
-                {{ form.submit(class="btn btn-primary", id="botonsignup") }}
+                {{ form.submit(class="btn btn-primary btn-block") }}
             </div>
         </form>
     </div>
