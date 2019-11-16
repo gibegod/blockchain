@@ -25,5 +25,5 @@ class ContractForm(FlaskForm): #creo formulario de contrato
 
 class WalletForm(FlaskForm): #formulario de billetera
     name = StringField('Title', validators=[DataRequired(), Length(max=128)])
-    content = TextAreaField('Content', validators =[DataRequired()])
+    key = TextAreaField('Key', validators =[DataRequired()])
     submit = SubmitField('Connect wallet')

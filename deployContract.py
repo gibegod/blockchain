@@ -9,8 +9,8 @@ w3 = Web3(HTTPProvider(" https://ropsten.infura.io/caf17ea0064344db8f7b2eb3a67bb
     #key= "0xFF1AFD0E33BB5854CBDCE5982806D6B58831FC568F77A3D0FEEDCA85E948CA35"
  #   acct = w3.eth.account.privateKeyToAccount(key)
 
-key= "0xFF1AFD0E33BB5854CBDCE5982806D6B58831FC568F77A3D0FEEDCA85E948CA35"
-acct = w3.eth.account.privateKeyToAccount(key)
+#key= "0xFF1AFD0E33BB5854CBDCE5982806D6B58831FC568F77A3D0FEEDCA85E948CA35"
+#acct = w3.eth.account.privateKeyToAccount(key)
 
 # Compila tu contrato inteligente en truffle.
 truffleFile = json.load(open('./build/contracts/SalesContract.json'))
@@ -19,7 +19,8 @@ bytecode = truffleFile['bytecode']
 contract= w3.eth.contract(bytecode=bytecode, abi=abi)
 
 #creacion del contrato
-def newContract(description, price):
+def newContract(description, price, key):
+    acct = w3.eth.account.privateKeyToAccount(key)
     construct_txn = contract.constructor(str(description), int(price)).buildTransaction({
         'from': acct.address,
         'nonce': w3.eth.getTransactionCount(acct.address),

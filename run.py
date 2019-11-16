@@ -11,7 +11,7 @@ from deployContract import newContract, movementHash, w3 #contractAccount
 
 app = Flask(__name__, static_folder = "./fronted/dist/static", template_folder = "./fronted/dist")
 app.config['SECRET_KEY'] = '7110c8ae51a4b5af97be6534caef90e4bb9bdcb3380af008f90b23a5d1616bf319bc298105da20fe'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/mercadoblockchain'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/mercadoblockchain'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -103,14 +103,22 @@ def contract():
         title = form.title.data
         description = form.description.data
         price = form.price.data
-        contract_address = newContract(title, price) #inicio contrato y creo en la base de datos
+        wallet = Wallet.get_by_id(current_user.id)
+        contract_address = newContract(title, price, wallet.key) #inicio contrato y creo en la base de datos
         contract = Contract(owner_id= current_user.id, address = contract_address, title = title, description = description, price = price)
         contract.save()
-        return redirect(url_for('index'))
+        return redirect(url_for('contract'))
     return render_template('contract.html', contracts=contracts, form=form)
 
-
-@app.route("/new" , methods=['GET','POST'])
+@app.route("/wallet", methods=['GET','POST'])
 @login_required
-def new():
-    return render_template('contract.html') 
+def wallet():
+    wallets = Wallet.get_by_idowner(current_user.id)
+    form = WalletForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        key = form.key.data
+        wallet = Wallet(name=name, owner_id=current_user.id, key = key)
+        wallet.save()
+        return redirect(url_for('wallet'))
+    return render_template('wallet.html', wallets=wallets, form=form)
