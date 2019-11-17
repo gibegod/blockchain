@@ -1,43 +1,79 @@
 {% extends "base_template.html" %}
 
 {% block title %}
-    Nuevo contrato
+Nuevo contrato
+{% endblock %}
+
+{% block header %}
+<style>
+    .miniheader {
+        text-align: center;
+        margin-top: -40px;
+    }
+</style>
+<div class="miniheader">
+    <h2>Block-Romantic</h2>
+</div>
 {% endblock %}
 
 {% block content %}
-    {%for contract in contracts%}
-    <h1>{{ contract.title }}</h1>
-    {{ contract.description }}
-    {{ contract.price }}
-    {{ contract.address }}
-    {% endfor %}
-    <div></div>
-    <div></div>
+<style>
+    #bloquecontrato {
+        width: 50%;
+    }
+
+    #lista {
+        width: 40%;
+        float: right;
+    }
+</style>
+
+<div class="d-flex justify-content-center">
+<div id="bloquecontrato">
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <div>
             {{ form.title.label }}
-            {{ form.title(size=128) }}<br>
+            {{ form.title(class="form-control", size=128, placeholder="Enter Title") }}<br>
             {% for error in form.title.errors %}
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </div>
         <div>
             {{ form.description.label }}
-            {{ form.description }}<br>
+            {{ form.description(class="form-control", placeholder="Enter Description") }}<br>
             {% for error in form.description.errors %}
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </div>
         <div>
             {{ form.price.label }}
-            {{ form.price }}<br>
+            {{ form.price(class="form-control", placeholder="Enter Price") }}<br>
             {% for error in form.price.errors %}
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </div>
         <div>
-            {{ form.submit() }}
+            {{ form.submit(class="btn btn-primary btn-block") }}
         </div>
     </form>
+</div>
+
+<div id="lista">
+    <h4>Podemos hacer que si apretamos un contrato lo podamos modificar</h4>
+    {%for contract in contracts%}
+    <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ contract.title }}</h5>
+            </div>
+            <p class="mb-1">Descripcion: {{ contract.description }}</p>
+            <p class="mb-1">Price: {{ contract.price }}</p>
+            <p class="mb-1">Address: {{ contract.address }} </p>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+</div>
+
 {% endblock %}

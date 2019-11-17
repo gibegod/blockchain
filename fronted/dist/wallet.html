@@ -1,33 +1,40 @@
 {% extends "base_template.html" %}
 
 {% block title %}
-    Nueva wallet
+    New wallet
 {% endblock %}
 
 {% block content %}
+<style>
+    #bloquewallet{
+        width: 50%;
+    }
+</style>
+
+
     {%for wallet in wallets%}
     <h1>{{ wallet.name }}</h1>
     {% endfor %}
-    <div></div>
-    <div></div>
+    <div id="bloquewallet">
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <div>
             {{ form.name.label }}
-            {{ form.name(size=128) }}<br>
+            {{ form.name(size=128, class="form-control my-1") }}<br>
             {% for error in form.name.errors %}
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </div>
         <div>
             {{ form.key.label }}
-            {{ form.key }}<br>
+            {{ form.key(class="form-control my-1") }}<br>
             {% for error in form.key.errors %}
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </div>
         <div>
-            {{ form.submit() }}
+            {{ form.submit(class="btn btn-primary btn-block") }}
         </div>
     </form>
+</div>
 {% endblock %}
