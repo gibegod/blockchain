@@ -70,6 +70,10 @@ class Contract(db.Model):
         return Contract.query.filter_by(owner_id=owner_id).all()
 
     @staticmethod
+    def get_by_id(id):
+        return Contract.query.filter_by(id=id).first()
+
+    @staticmethod
     def get_all():
         return Contract.query.all()
 

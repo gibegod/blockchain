@@ -1,13 +1,12 @@
 import json
 from web3 import Web3, HTTPProvider
 from web3.contract import ConciseContract
+#from models import Contract, User
+#from flask_login import current_user
 
 # web3.py instanciado
 w3 = Web3(HTTPProvider(" https://ropsten.infura.io/caf17ea0064344db8f7b2eb3a67bb058 "))
 
-#def contractAccount(key):
-    #key= "0xFF1AFD0E33BB5854CBDCE5982806D6B58831FC568F77A3D0FEEDCA85E948CA35"
- #   acct = w3.eth.account.privateKeyToAccount(key)
 
 #key= "0xFF1AFD0E33BB5854CBDCE5982806D6B58831FC568F77A3D0FEEDCA85E948CA35"
 #acct = w3.eth.account.privateKeyToAccount(key)
@@ -38,3 +37,20 @@ def movementHash (tx, key):
     tx_hash= w3.eth.sendRawTransaction(signed_tx.rawTransaction)
     tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
     return tx_receipt
+
+
+def buy (contract, comprador):
+    walletV =  Wallet.get_by_idowner(contract.owner_id)
+    acctVendedor = defAcc(walletV.key)
+    walletC = Wallet.get_by_idowner(current_user.id)
+    acctComprador = defAcc(walletC.key)
+    signed_txn = w3.eth.account.signTransaction(dict(
+    nonce=w3.eth.getTransactionCount(str(acctComprador)),
+    gasPrice = w3.eth.gasPrice, 
+    gas = 100000,
+    to=str(acctVendedor),
+    value=web3.toEther(int(contract.price),'ether')
+    ),
+    str(walletC.key))
+    hash =  w3.eth.sendRawTransaction(signed_txn.rawTransaction)
+    return hash

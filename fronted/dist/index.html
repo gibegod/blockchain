@@ -12,25 +12,22 @@
 {% block content %} 
         <a class="goto" href="{{ url_for('login') }}">Login</a>
         <a class="goto" href="{{ url_for('show_signup_form') }}">Signup</a>
-
-    <article class="texto">
-            <p>Presentacion</p>
-            <p>Cómo anda el programa ? El programa anda bien, tiene las paredes pintadas, hay un banquito que le
-                rechina una pata pero anda bien</p>
-            <p>Si nuestro programa es malo, ¿como están los otros programas del curso? El mejor tp de objetos lo
-                hicimos nosotros. Y ahora estamos adelantados. Será menos malo que el de los demás entonces</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi consequuntur, molestiae sapiente quos
-                cumque alias commodi repudiandae inventore harum minus libero! Delectus eaque quam cumque nulla esse
-                saepe. Ducimus, laboriosam.</p>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque praesentium nobis non dolorem, illum
-                natus dolore at veritatis iure quidem recusandae quas mollitia quis cum fuga, saepe similique,
-                eligendi reiciendis.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus labore officiis, deleniti non
-                expedita neque molestiae, itaque odio consequuntur eaque a sunt? Praesentium exercitationem eveniet
-                magni illum, excepturi est nihil!</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut eligendi, illo voluptatibus officiis
-                commodi nostrum, tempore quaerat nam facere harum sequi reprehenderit quibusdam vero laudantium
-                dolor atque voluptatum vel provident.</p>
-    </article>
+        <div id="lista">
+            <h4>Podemos hacer que si apretamos un contrato lo podamos modificar</h4>
+            {%for contract in contracts%}
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ contract.title }}</h5>
+                    </div>
+                    <p class="mb-1">Descripcion: {{ contract.description }}</p>
+                    <p class="mb-1">Price: {{ contract.price }}</p>
+                    <p class="mb-1">Address: {{ contract.address }} </p>
+                    <form action="/buy">
+                    </form>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
 
 {% endblock %}

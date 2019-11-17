@@ -21,6 +21,7 @@ class ContractForm(FlaskForm): #creo formulario de contrato
     description = TextAreaField('Description')
     price = StringField('Price', validators=[DataRequired()])
     submit = SubmitField('Create contract')
+    buy = SubmitField('Buy')
 
 
 class WalletForm(FlaskForm): #formulario de billetera

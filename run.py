@@ -11,7 +11,7 @@ from deployContract import newContract, movementHash, w3 #contractAccount
 
 app = Flask(__name__, static_folder = "./fronted/dist/static", template_folder = "./fronted/dist")
 app.config['SECRET_KEY'] = '7110c8ae51a4b5af97be6534caef90e4bb9bdcb3380af008f90b23a5d1616bf319bc298105da20fe'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/mercadoblockchain'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/mercadoblockchain'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -93,10 +93,10 @@ def logout():
 
 
 #formulario para crear los contratos, tambien muestra los existentes
-@app.route("/contract", methods=['GET','POST']) #defaults={'contract_id': None}
-#@app.route("/contract/<int: contract_id>")
+@app.route("/contract", methods=['GET','POST'], defaults={'id': None}) #defaults={'contract_id': None}
+@app.route("/contract/<id>")
 @login_required
-def contract():
+def contract(id):
     contracts = Contract.get_by_idowner(current_user.id) #traigo todos los contratos del que este usuario es dueño
     form = ContractForm()
     if form.validate_on_submit():
@@ -122,3 +122,31 @@ def wallet():
         wallet.save()
         return redirect(url_for('wallet'))
     return render_template('wallet.html', wallets=wallets, form=form)
+
+@app.route("/buy/<id>", methods=['GET','POST'])
+@login_required
+def buy(id):
+    contract = Contract.get_by_id(id)
+    user = User.get_by_id(current_user.id)
+
+    walletV =  Wallet.get_by_idowner(contract.owner_id)
+    print(walletV.name)
+    #acctV = w3.eth.account.privateKeyToAccount(walletV.key)
+    walletC = Wallet.get_by_idowner(current_user.id)
+    print(walletC.name)
+
+    #acctC = w3.eth.account.privateKeyToAccount(walletC.key)
+
+    signed_txn = w3.eth.account.signTransaction(dict(
+    nonce=w3.eth.getTransactionCount(str(acctC)),
+    gasPrice = w3.eth.gasPrice, 
+    gas = 100000,
+    to=str(acctV),
+    value=w3.toWei(int(contract.price),'Wei')
+  ),
+  str(walletV.key))
+    hash =  w3.eth.sendRawTransaction(signed_txn.rawTransaction)
+
+    return render_template('newContract.html', hash=hash)
+
+

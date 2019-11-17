@@ -70,6 +70,9 @@ Nuevo contrato
             <p class="mb-1">Descripcion: {{ contract.description }}</p>
             <p class="mb-1">Price: {{ contract.price }}</p>
             <p class="mb-1">Address: {{ contract.address }} </p>
+            <form action="/buy">
+            <p>{{ form.buy (class="btn btn-primary btn-block")}}</p>
+            </form>
         </a>
     </div>
     {% endfor %}
