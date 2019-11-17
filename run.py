@@ -129,19 +129,20 @@ def buy(id):
     contract = Contract.get_by_id(id)
     user = User.get_by_id(current_user.id)
 
-    walletV =  Wallet.get_by_idowner(contract.owner_id)
-    print(walletV.name)
-    #acctV = w3.eth.account.privateKeyToAccount(walletV.key)
-    walletC = Wallet.get_by_idowner(current_user.id)
-    print(walletC.name)
+    walletV =  Wallet.get_by_idownerunico(contract.owner_id)
+    acctV = w3.eth.account.privateKeyToAccount(walletV.key)
+    walletC = Wallet.get_by_idownerunico(current_user.id)
+    acctC = w3.eth.account.privateKeyToAccount(walletC.key)
+    print(acctC)
+    print(acctV)
 
-    #acctC = w3.eth.account.privateKeyToAccount(walletC.key)
+
 
     signed_txn = w3.eth.account.signTransaction(dict(
-    nonce=w3.eth.getTransactionCount(str(acctC)),
+    nonce=w3.eth.getTransactionCount(str(acctC.address)),
     gasPrice = w3.eth.gasPrice, 
     gas = 100000,
-    to=str(acctV),
+    to=str(acctV.address),
     value=w3.toWei(int(contract.price),'Wei')
   ),
   str(walletV.key))

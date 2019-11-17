@@ -107,6 +107,10 @@ class Wallet(db.Model):
         return Wallet.query.filter_by(owner_id=owner_id).all()
 
     @staticmethod
+    def get_by_idownerunico(owner_id):
+        return Wallet.query.filter_by(owner_id=owner_id).first()
+
+    @staticmethod
     def get_all():
         return Wallet.query.all()
     
