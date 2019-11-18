@@ -87,6 +87,33 @@ class Contract(db.Model):
         db.session.execute(stmt)
         db.session.commit()
 
+    @staticmethod #updates metodos
+    def update_title(self, newtitle):
+        stmt = (update(Contract)
+            .where(Contract.id == self.id)
+            .values(title= newtitle)
+             )
+        db.session.execute(stmt)
+        db.session.commit()
+    
+    @staticmethod #updates metodos
+    def update_description(self, newdescription):
+        stmt = (update(Contract)
+            .where(Contract.id == self.id)
+            .values(description= newdescription)
+             )
+        db.session.execute(stmt)
+        db.session.commit()
+    
+    @staticmethod #updates metodos
+    def update_price(self, newprice):
+        stmt = (update(Contract)
+            .where(Contract.id == self.id)
+            .values(price= newprice)
+             )
+        db.session.execute(stmt)
+        db.session.commit()
+
 class Wallet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable = False)

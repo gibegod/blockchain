@@ -129,7 +129,30 @@ def wallet():
 @login_required
 def edit(id):
     contract = Contract.get_by_id(id)
-    return render_template('editar.html', contract = contract)
+    form = ContractForm()
+    if contract.owner_id == current_user.id:
+        return render_template('editar.html', contract = contract, form = form)
+
+    flash ('No eres el dueño de este contrato')
+    return render_template('contract.html')
+
+@app.route ("/update/<id>", methods= ['POST', 'GET'])
+@login_required
+def update(id):
+    contract = Contract.get_by_id(id)
+    form = ContractForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        description = form.description.data
+        price = form.price.data
+
+        Contract.update_title(contract, title)
+        Contract.update_description(contract, description)
+        Contract.update_price(contract, price)
+        flash ('Contrato actualizado')
+        return render_template('myaccount.html')
+    flash ('No se pudo actualizar el contrato')
+    return render_template('contract.html')
 
 @app.route("/buy/<id>", methods=['GET','POST'])
 @login_required

@@ -1,23 +1,33 @@
 {% block body%}
-<div class="col-md-4 offset-md-4">
-        <div class="card card-body">
-<form action="/update/{{contract.id}}" method="POST">
-     <div class="form-group">
-          <input type="text" name="title" placeholder="Titulo" value="{{contract.title}}" class="form-control">
-       </div>
-      <div class="form-group">
-           <input type="text" name="description" placeholder="Descripcion" value="{{contract.description}}" class="form-control">
-      </div>
-     <div class="form-group">
-           <input type="text" name="price" placeholder="Precio" value=" {{contract.price}}" class="form-control">
-       </div>
-      <div class="form-group">
-           <button type="submit" class=" btn btn-primary btn-block" class="form-control">
-               Guardar
-               </button>            
-       </div>
-   </form>
-        </div>
-</div>
-
+<div class="d-flex justify-content-start">
+    <div id="bloquecontrato">
+        <h4 style="font-size: 40px; text-align: center;">Create a contract</h4>
+        <form action="/update/{{contract.id}}" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.title.label }}
+                {{ form.title(class="form-control", size=128, placeholder="Enter Title") }}<br>
+                {% for error in form.title.errors %}
+                <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div>
+                {{ form.description.label }}
+                {{ form.description(class="form-control", placeholder="Enter Description") }}<br>
+                {% for error in form.description.errors %}
+                <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div>
+                {{ form.price.label }}
+                {{ form.price(class="form-control", placeholder="Enter Price") }}<br>
+                {% for error in form.price.errors %}
+                <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div>
+                {{ form.submit(class="btn btn-block", style="background-color: #74b9ff; color: #1e272e; font-weight: bold") }}
+            </div>
+        </form>
+    </div>
 {% endblock %}
