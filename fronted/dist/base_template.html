@@ -16,14 +16,18 @@
             font-family: sans-serif;
         }
 
+        #granbloque {
+            background-color: #ced6e0;
+        }
         .header {
             text-align: center;
-            border-bottom: 1px solid black;
+            border-bottom: 2px solid black;
         }
 
         .header h1 {
             font-weight: bold;
             font-size: 40px;
+            color: #1e272e;
         }
 
         .header h4 {
@@ -43,15 +47,16 @@
         }
 
         body {
-            background-image: url('https://wallpaperplay.com/walls/full/5/9/5/37696.jpg');
+            background-color: #dfe4ea;
+            padding: 0px 25px;
         }
 
         footer {
             font-weight: bold;
             clear: both;
             padding: 15px;
-            border-top: 2px solid black;
-            text-align: center;
+            font-size: 10px;
+            background-color: #dfe4ea;
         }
 
         .contenido {
@@ -63,12 +68,7 @@
             margin-bottom: 15px;
             width: 50%;
             font-size: 18px;
-        }
-
-        .goto {
-            float: right;
-            padding: 20px;
-            font-size: 40px;
+            color: #2f3542;
         }
 
         #name {
@@ -93,7 +93,7 @@
             top: 0;
             /* Stay at the top */
             left: 0;
-            background-color: #111;
+            background-color: #1e272e;
             /* Black*/
             overflow-x: hidden;
             /* Disable horizontal scroll */
@@ -108,14 +108,14 @@
             padding: 8px 8px 8px 32px;
             text-decoration: none;
             font-size: 25px;
-            color: #818181;
+            color: #ced6e0;
             display: block;
             transition: 0.3s;
         }
 
         /* When you mouse over the navigation links, change their color */
         .sidenav a:hover {
-            color: #f1f1f1;
+            color: #ced6e0;
         }
 
         /* Position and style the close button (top right corner) */
@@ -150,10 +150,10 @@
 
         /* Style the sidenav links and the dropdown button */
         .dropdown-btn {
-            padding: 6px 8px 6px 16px;
+            padding: 6px 8px 6px 32px;
             text-decoration: none;
-            font-size: 20px;
-            color: #818181;
+            font-size: 25px;
+            color: #ced6e0;
             display: block;
             border: none;
             background: none;
@@ -174,11 +174,14 @@
             color: white;
         }
 
-        /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
         .dropdown-container {
             display: none;
-            background-color: #262626;
+            background-color: #1e272e;
             padding-left: 8px;
+            
+        }
+        .dropdown-container a{
+            font-size: 18px;
         }
 
         /* Optional: Style the caret down icon */
@@ -191,21 +194,23 @@
 
 
 <body>
+<div id="granbloque">
     <span id="open" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         {% if current_user.is_anonymous %}
-        <a class="opciones" href="{{ url_for('index') }}">Home</a>
-        <a class="opciones" href="{{ url_for('login') }}">Login</a>
-        <a class="opciones" href="{{ url_for('show_signup_form') }}">Signup</a>
-        <a class="opciones" href="https://wallpapercave.com/wp/wp2068399.jpg">JRR(10)</a>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('show_signup_form') }}">Signup</a>
+        <a href="https://wallpapercave.com/wp/wp2068399.jpg">JRR(10)</a>
         {% else %}
-        <a class="opciones" href="{{ url_for('account') }}">Account</a>
+        <a href="{{ url_for('account') }}">Account</a>
         <strong id="name">{{ current_user.name }}</strong>
-        <a class="opciones" href="#">Info Cuenta</a>
-        <a class="opciones" href="{{ url_for('logout') }}">Logout</a>
-        <a class="opciones" href="{{ url_for('wallet') }}">Wallet</a>
-        <a class="opciones" href="{{ url_for('contract') }}">Contracts</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        <a href="#">Info Cuenta</a>
+        <a href="{{ url_for('wallet') }}">Wallet</a>
+        <a href="{{ url_for('contract') }}">Contracts</a>
+        <a href="#">Buy</a>
         <button class="dropdown-btn">Contracts
             <i class="fa fa-caret-down"></i>
         </button>
@@ -213,52 +218,48 @@
             <a href="#">Crear contrato</a>
             <a href="#">Contratos creados</a>
         </div>
-
         {% endif %}
     </div>
-
-    <!-- Use any element to open the sidenav -->
-    <script>
-        /* Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
-            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-        }
-
-        /* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.getElementById("main").style.marginLeft = "0";
-            document.body.style.backgroundColor = "white";
-        }
-
-        //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-        var dropdown = document.getElementsByClassName("dropdown-btn");
-        var i;
-
-        for (i = 0; i < dropdown.length; i++) {
-            dropdown[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var dropdownContent = this.nextElementSibling;
-                if (dropdownContent.style.display === "block") {
-                    dropdownContent.style.display = "none";
-                } else {
-                    dropdownContent.style.display = "block";
-                }
-            });
-        }
-    </script>
 
     <div id="main">
         {% block header %}{% endblock %}
         <div class="contenido">
             {% block content %}{% endblock %}
         </div>
-        <footer>
-            Todos los derechos reservados.
-            Copyright 1999-2019</footer>
+        <footer>Copyright © 1999-2019 Block-Romatic.</footer>
     </div>
+</div>
+
+    <!-- Use any element to open the sidenav -->
+    <script>
+            /* Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "250px";
+                document.getElementById("main").style.marginLeft = "250px";
+            }
+    
+            /* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+                document.getElementById("main").style.marginLeft = "0";
+            }
+    
+            //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+            var dropdown = document.getElementsByClassName("dropdown-btn");
+            var i;
+    
+            for (i = 0; i < dropdown.length; i++) {
+                dropdown[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var dropdownContent = this.nextElementSibling;
+                    if (dropdownContent.style.display === "block") {
+                        dropdownContent.style.display = "none";
+                    } else {
+                        dropdownContent.style.display = "block";
+                    }
+                });
+            }
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,9 @@
+index:
+color barras laterales: #dfe4ea
+color fondo: #ced6e0
+
+azul: #0984e3
+azul mas clarito: #74b9ff
+
+adentro login: #f1f2f6
+negro (texto): #1e272e
