@@ -109,6 +109,7 @@ def contract(id):
         contract_address = newContract(title, price, wallet.key) #inicio contrato y creo en la base de datos
         contract = Contract(owner_id= current_user.id, address = contract_address, title = title, description = description, price = price)
         contract.save()
+        Contract.onSale_True(contract)
         return redirect(url_for('contract'))
     return render_template('contract.html', contracts=contracts, form=form)
 
@@ -194,6 +195,7 @@ def buy(id):
     tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
     hash = w3.toHex(tx_receipt['transactionHash'])
     Contract.update_idowner(contract, current_user.id)
+    Contract.onSale_False(contract)
     #contract_instance = w3.eth.contract(address= contract.address, abi = abi)
     #tx_hash2 = contract_instance.functions.setOwner(acctC.address).transact()
 
@@ -207,7 +209,23 @@ def buy(id):
 @login_required
 def contratosdisponibles():
     contracts = Contract.get_all()
-    return render_template('contratosdisponibles.html', contracts=contracts)
+    id = current_user.id
+    return render_template('contratosdisponibles.html', contracts=contracts, id=id)
+
+@app.route("/onsale/<id>")
+@login_required
+def onSale(id):
+    contract = Contract.get_by_id(id)
+    if (contract.onSale==False):
+        Contract.onSale_True(contract)
+        flash('Contrato puesto a la venta')
+        return redirect (url_for('contract'))
+    
+    flash ('El contrato ya se encuentra a la venta')
+    return redirect (url_for('contract'))
+
+
+    
         
 
 

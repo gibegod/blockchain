@@ -46,6 +46,7 @@ class Contract(db.Model):
     title = db.Column(db.String(80), nullable=False)
     description = db.Column(db.Text, nullable =False)
     price = db.Column(db.Integer, nullable = False)
+    onSale = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return f'<Contract {self.address}>'
@@ -78,7 +79,25 @@ class Contract(db.Model):
     def get_all():
         return Contract.query.all()
 
-    @staticmethod #updates metodos
+    @staticmethod 
+    def onSale_True(self):
+        stmt = (update(Contract)
+            .where(Contract.id == self.id)
+            .values(onSale= True)
+             )
+        db.session.execute(stmt)
+        db.session.commit()
+    
+    @staticmethod 
+    def onSale_False(self):
+        stmt = (update(Contract)
+            .where(Contract.id == self.id)
+            .values(onSale= False)
+             )
+        db.session.execute(stmt)
+        db.session.commit()
+
+    @staticmethod 
     def update_idowner(self, newowner_id):
         stmt = (update(Contract)
             .where(Contract.id == self.id)
