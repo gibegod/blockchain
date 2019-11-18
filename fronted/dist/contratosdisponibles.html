@@ -1,4 +1,29 @@
+{% extends "base_template.html" %}
+
+{% block title %}
+Available contracts
+{% endblock %}
+
+{% block header %}
+<div class="miniheader">
+    <h2>Block-Romantic</h2>
+</div>
+{% endblock %}
+
 {% block content %}
+<style>
+    .lista {
+        width: 90%;
+        columns: 2;
+        float: left;
+        position: relative;
+        margin-right: 20px;
+        padding: 35px;
+        list-style-position: inside;
+    }
+
+</style>
+
 
 <div class="lista">
         <h4 style="text-align: center; font-size: 32px;">Available contracts</h4>
@@ -7,7 +32,7 @@
         {% if contract.onSale ==True %}
         {%if contract.id != id%}
         <div class="list-group">
-            <div class="list-group-item list-group-item-action" style="background-color: #74b9ff; color: #1e272e; border-color: #636e72;">
+            <div class="list-group-item list-group-item-action" style="background-color: #ffffff; color: #1e272e; border-color: #636e72;">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-2 text-break">{{ contract.title }}</h5>
                 </div>
@@ -24,5 +49,7 @@
         
         
     </div>
+
+
 
 {% endblock %}

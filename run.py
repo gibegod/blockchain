@@ -133,7 +133,6 @@ def edit(id):
     form = ContractForm()
     if contract.owner_id == current_user.id:
         return render_template('editar.html', contract = contract, form = form)
-
     flash ('No eres el dueño de este contrato')
     return render_template('contract.html')
 
