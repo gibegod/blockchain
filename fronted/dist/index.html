@@ -5,29 +5,64 @@
 {% block header %}
 <div class="header">
     <h1>Block-Romantic</h1>
-    <h4>"Best login ever seen" -My mom <3</h4> </div> 
+    <h4>"Best login ever seen" -My mom <3</h4> 
+</div> 
 {% endblock %} 
 
 
 {% block content %} 
-        <a class="goto" href="{{ url_for('login') }}">Login</a>
-        <a class="goto" href="{{ url_for('show_signup_form') }}">Signup</a>
-        <div id="lista">
-            <h4>Podemos hacer que si apretamos un contrato lo podamos modificar</h4>
-            {%for contract in contracts%}
-            <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{ contract.title }}</h5>
-                    </div>
-                    <p class="mb-1">Descripcion: {{ contract.description }}</p>
-                    <p class="mb-1">Price: {{ contract.price }}</p>
-                    <p class="mb-1">Address: {{ contract.address }} </p>
-                    <form action="/buy">
-                    </form>
-                </a>
+<style>
+    .lista {
+        width: 45%;
+    }
+
+    .goto {
+        padding: 30px;
+        font-size: 40px;
+        color: black;
+    }
+    #logsign {
+        float: right;
+        margin-top: -23%;
+        margin-right: 10%;
+        width: 30%;
+        padding: 15px;
+    }
+</style>
+
+<article class="texto">
+    <p>Presentacion de la app</p>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit ratione temporibus voluptate esse
+    officiis libero
+    illum dolor hic, non provident necessitatibus quae ipsum. Veritatis eos cupiditate aspernatur quidem
+    sint! Officiis
+    velit cum dolor praesentium, commodi expedita nostrum saepe dolorem modi! Et sequi molestias
+    aliquam, impedit eos
+    qui sit at dolorum necessitatibus quia magni quidem, culpa, odio error. Quibusdam, nam aperiam?</p>
+</article>
+
+<div id="logsign" class="d-flex flex-column bd-highlight">
+    <a class="goto btn btn-outline-dark btn-block bd-highlight" style="background-color: #0984e3;" href="{{ url_for('login') }}" role="button">Log
+        in!</a>
+    <a class="goto btn btn-outline-dark btn-block bd-highlight" style="background-color: #0984e3;" href="{{ url_for('show_signup_form') }}"
+        role="button">Sign up!</a>
+</div>
+<div class="lista">
+    <h4 style="text-align: center;">Contratos disponibles</h4>
+    {%for contract in contracts%}
+    <div class="list-group">
+        <div class="list-group-item list-group-item-action text-dark" style="background-color: #0984e3;">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ contract.title }}</h5>
             </div>
-            {% endfor %}
+            <p class="mb-1">Descripcion: {{ contract.description }}</p>
+            <p class="mb-1">Price: {{ contract.price }}</p>
+            <p class="mb-1">Address: {{ contract.address }} </p>
+            <form action="/buy">
+            </form>
         </div>
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock %}

@@ -7,12 +7,12 @@
         crossorigin="anonymous"></script>
     <style>
         body {
-            background-image: url('https://wallpaperplay.com/walls/full/5/9/5/37696.jpg');
+            background-color: #ced6e0;
             font-family: sans-serif;
         }
 
         h3 {
-            font-size: 27px;
+            font-size: 30px;
             font-weight: bold;
             text-align: center;
         }
@@ -26,7 +26,7 @@
             border: 1px solid #2f3640;
             border-radius: 10px;
             padding: 20px;
-            background-color: #ecf0f1;
+            background-color: #f1f2f6;
             margin: 120px auto;
             box-shadow: 2px 2px 5px 2px gray;
         }
@@ -40,7 +40,11 @@
 </head>
 
 {% block content %}
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+<style>
+
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #0984e3">
     <a class="navbar-brand" href="{{ url_for('index') }}">Block-Romantic</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,10 +89,10 @@
             </div>
             <div>{{ form.remember_me() }} {{ form.remember_me.label }}</div>
             <div>
-                {{ form.submit(class="btn btn-primary btn-block") }}
+                {{ form.submit(class="btn btn-block", style="background-color: #0984e3") }}
             </div>
         </form>
     </div>
-    <div>New here? <a href="{{ url_for('show_signup_form') }}">Sign up now</a></div>
+    <div>New here? <a href="{{ url_for('show_signup_form') }}" style="color: #0984e3;">Sign up now</a></div>
 </div>
 {% endblock %}

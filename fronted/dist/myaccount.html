@@ -6,7 +6,9 @@
 <style>
     .miniheader {
         text-align: center;
-        margin-top: -40px;
+        margin-top: -3.7%;
+        background-color: #0984e3;
+
     }
 </style>
 <div class="miniheader">
@@ -16,32 +18,48 @@
 
 {% block content %}
 
-
 <style>
+    .infocuenta {
+        width: 50%;
+        margin: 20px;
+    }
+
+    #bloquescuenta {
+        float: right;
+        margin-top: -17%;
+        margin-right: 10%;
+        width: 30%;
+        padding: 15px;
+    }
+
     .bloque {
-        border: 2px solid black;
-        padding: 20px;
+        padding: 30px;
+        font-size: 20px;
+        border: 1px solid grey;
+        border-radius: 5px;
+    }
+
+    .goto {
+        padding: 30px;
+        font-size: 20px;
+        color: black;
     }
 </style>
 
-<div class="d-flex justify-content-center">
-    <div class="bloque">
-        <p>Actual Wallet</p>
-    </div>
-    <div class="bloque">
-        <p>Last Contracts</p>
-    </div>
+<article class="infocuenta">
+    <p>Mini tutorial</p>
+    <p>tuto de usar la waller, los contratos, comprar, etc. info cuenta</p>
+    <p>Para crear un contrato o comprar algo primero debes crear una wallet con una key valida. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, eius qui libero voluptates mollitia unde non vel laborum perferendis in officiis exercitationem expedita sint accusantium soluta facilis saepe, harum recusandae.</p>
 </div>
-<article class="texto">
-    <p>Crea una wallet trolo</p>
-<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit ratione temporibus voluptate esse officiis libero
-    illum dolor hic, non provident necessitatibus quae ipsum. Veritatis eos cupiditate aspernatur quidem sint! Officiis
-    velit cum dolor praesentium, commodi expedita nostrum saepe dolorem modi! Et sequi molestias aliquam, impedit eos
-    qui sit at dolorum necessitatibus quia magni quidem, culpa, odio error. Quibusdam, nam aperiam?</p>
-<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit ratione temporibus voluptate esse officiis libero
-    illum dolor hic, non provident necessitatibus quae ipsum. Veritatis eos cupiditate aspernatur quidem sint! Officiis
-    velit cum dolor praesentium, commodi expedita nostrum saepe dolorem modi! Et sequi molestias aliquam, impedit eos
-    qui sit at dolorum necessitatibus quia magni quidem, culpa, odio error. Quibusdam, nam aperiam?</p>
+
+<div id="bloquescuenta" class="d-flex flex-column bd-highlight">
+    <div class="bloque" style="background-color: transparent;">
+        <h3>Actual Wallet</h3>
+        <p>Actualmente estas usando:</p>
+        <p>Tienes un saldo de:</p>
+    </div>
+    <div style="padding: 5px;"></div>
+    <a class="bloque btn btn-outline-dark btn-block bd-highlight" style="background-color: transparent;" href="#">Editar datos de la cuenta</a>
 </div>
 
 {% endblock %}
