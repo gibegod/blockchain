@@ -11,7 +11,7 @@ from deployContract import newContract, movementHash, w3, abi #contractAccount
 
 app = Flask(__name__, static_folder = "./fronted/dist/static", template_folder = "./fronted/dist")
 app.config['SECRET_KEY'] = '7110c8ae51a4b5af97be6534caef90e4bb9bdcb3380af008f90b23a5d1616bf319bc298105da20fe'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/mercadoblockchain'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/mercadoblockchain'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -30,6 +30,8 @@ from models import User, Contract, Wallet
 
 @app.route("/")
 def index():
+    if current_user.is_authenticated:
+        return redirect(url_for('account'))
     contracts = Contract.get_all()
     return render_template("index.html", contracts=contracts)
 

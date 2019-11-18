@@ -3,14 +3,6 @@
 {% block title %}Account{% endblock %}
 
 {% block header %}
-<style>
-    .miniheader {
-        text-align: center;
-        margin-top: -3.7%;
-        background-color: #0984e3;
-
-    }
-</style>
 <div class="miniheader">
     <h2>Block-Romantic</h2>
 </div>
@@ -35,8 +27,9 @@
     .bloque {
         padding: 30px;
         font-size: 20px;
-        border: 1px solid grey;
+        border: 1px solid #636e72;
         border-radius: 5px;
+        background-color: #74b9ff;
     }
 
     .goto {
@@ -53,13 +46,13 @@
 </div>
 
 <div id="bloquescuenta" class="d-flex flex-column bd-highlight">
-    <div class="bloque" style="background-color: transparent;">
+    <div class="bloque">
         <h3>Actual Wallet</h3>
         <p>Actualmente estas usando:</p>
         <p>Tienes un saldo de:</p>
     </div>
     <div style="padding: 5px;"></div>
-    <a class="bloque btn btn-outline-dark btn-block bd-highlight" style="background-color: transparent;" href="#">Editar datos de la cuenta</a>
+    <a class="bloque btn btn-outline-dark btn-block bd-highlight" href="#">Editar datos de la cuenta</a>
 </div>
 
 {% endblock %}

@@ -14,6 +14,7 @@
             font-size: 30px;
             font-weight: bold;
             text-align: center;
+            color: #1e272e;
         }
 
         .signup {
@@ -22,7 +23,7 @@
 
         .bloque {
             width: 30%;
-            border: 1px solid #2f3640;
+            border: 1px solid #636e72;
             border-radius: 10px;
             padding: 20px;
             background-color: #f1f2f6;
@@ -49,9 +50,6 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('index') }}">Home </a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('login') }}">Log in</a>
             </li>
@@ -90,7 +88,7 @@
                 {% endfor %}
             </div>
             <div>
-                {{ form.submit(class="btn btn-block", style="background-color: #0984e3") }}
+                {{ form.submit(class="btn btn-block", style="background-color: #0984e3; color: #1e272e; font-weight: bold") }}
             </div>
         </form>
     </div>
