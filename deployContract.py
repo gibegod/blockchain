@@ -39,18 +39,3 @@ def movementHash (tx, key):
     return tx_receipt
 
 
-def buy (contract, comprador):
-    walletV =  Wallet.get_by_idowner(contract.owner_id)
-    acctVendedor = defAcc(walletV.key)
-    walletC = Wallet.get_by_idowner(current_user.id)
-    acctComprador = defAcc(walletC.key)
-    signed_txn = w3.eth.account.signTransaction(dict(
-    nonce=w3.eth.getTransactionCount(str(acctComprador)),
-    gasPrice = w3.eth.gasPrice, 
-    gas = 100000,
-    to=str(acctVendedor),
-    value=web3.toEther(int(contract.price),'ether')
-    ),
-    str(walletC.key))
-    hash =  w3.eth.sendRawTransaction(signed_txn.rawTransaction)
-    return hash

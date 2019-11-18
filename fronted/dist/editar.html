@@ -1,0 +1,23 @@
+{% block body%}
+<div class="col-md-4 offset-md-4">
+        <div class="card card-body">
+<form action="/update/{{contract.id}}" method="POST">
+     <div class="form-group">
+          <input type="text" name="title" placeholder="Titulo" value="{{contract.title}}" class="form-control">
+       </div>
+      <div class="form-group">
+           <input type="text" name="description" placeholder="Descripcion" value="{{contract.description}}" class="form-control">
+      </div>
+     <div class="form-group">
+           <input type="text" name="price" placeholder="Precio" value=" {{contract.price}}" class="form-control">
+       </div>
+      <div class="form-group">
+           <button type="submit" class=" btn btn-primary btn-block" class="form-control">
+               Guardar
+               </button>            
+       </div>
+   </form>
+        </div>
+</div>
+
+{% endblock %}

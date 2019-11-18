@@ -69,10 +69,6 @@ class Contract(db.Model):
     @staticmethod
     def get_by_idowner(owner_id):
         return Contract.query.filter_by(owner_id=owner_id).all()
-    
-    @staticmethod
-    def update_idowner(self, owner_id):
-        update(Contract).where(Contract.id==self.id).values(owner_id= owner_id)
 
     @staticmethod
     def get_by_id(id):
@@ -81,6 +77,15 @@ class Contract(db.Model):
     @staticmethod
     def get_all():
         return Contract.query.all()
+
+    @staticmethod #updates metodos
+    def update_idowner(self, newowner_id):
+        stmt = (update(Contract)
+            .where(Contract.id == self.id)
+            .values(owner_id= newowner_id)
+             )
+        db.session.execute(stmt)
+        db.session.commit()
 
 class Wallet(db.Model):
     id = db.Column(db.Integer, primary_key=True)

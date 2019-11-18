@@ -30,6 +30,8 @@ from models import User, Contract, Wallet
 
 @app.route("/")
 def index():
+    if current_user.is_authenticated:
+        return redirect(url_for('account'))
     contracts = Contract.get_all()
     return render_template("index.html", contracts=contracts)
 
@@ -123,6 +125,12 @@ def wallet():
         return redirect(url_for('wallet'))
     return render_template('wallet.html', wallets=wallets, form=form)
 
+@app.route ("/edit/<id>", methods= ['POST', 'GET'])
+@login_required
+def edit(id):
+    contract = Contract.get_by_id(id)
+    return render_template('editar.html', contract = contract)
+
 @app.route("/buy/<id>", methods=['GET','POST'])
 @login_required
 def buy(id):
@@ -138,6 +146,7 @@ def buy(id):
 
     walletC = Wallet.get_by_idownerunico(current_user.id)
     acctC = w3.eth.account.privateKeyToAccount(walletC.key) #direccion comprador
+
     signed_txn = w3.eth.account.signTransaction(dict(
     nonce=w3.eth.getTransactionCount(str(acctC.address)),
     gasPrice=w3.eth.gasPrice,
@@ -151,9 +160,15 @@ def buy(id):
     tx_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction)
     tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
     hash = w3.toHex(tx_receipt['transactionHash'])
-    #contract.update().where(contract.c.id==walletV.owner_id).values(owner_id = walletC.owner_id)
+    Contract.update_idowner(contract, current_user.id)
+    #contract_instance = w3.eth.contract(address= contract.address, abi = abi)
+    #tx_hash2 = contract_instance.functions.setOwner(acctC.address).transact()
+
+    #tx_receipt2 = w3.eth.waitForTransactionReceipt(tx_hash2)
+    #hash2 = w3.toHex(tx_receipt2['transactionHash'])
+
     flash('Contract adquired')
-    return render_template('newContract.html', hash=hash)
+    return render_template('newContract.html', hash=hash, hash2 = hash2)
         
 
 

@@ -17,11 +17,15 @@
         }
 
         #granbloque {
-            background-color: #ced6e0;
+            background-color: #dfe4ea;
         }
         .header {
             text-align: center;
-            border-bottom: 2px solid black;
+            background-color: #0984e3;
+            box-shadow: 0px 3px 4px 0px gray;
+            margin-top: -4%;
+            height: 130px;
+            padding: 20px 0px;
         }
 
         .header h1 {
@@ -32,6 +36,14 @@
 
         .header h4 {
             font-size: 17px;
+
+        }
+
+        .miniheader {
+            text-align: center;
+            margin-top: -4%;
+            background-color: #0984e3;
+            box-shadow: 0px 3px 4px 0px gray;
         }
 
         .fijo {
@@ -47,8 +59,8 @@
         }
 
         body {
-            background-color: #dfe4ea;
-            padding: 0px 25px;
+            background-color: #ced6e0;
+            padding: 0px 75px;
         }
 
         footer {
@@ -56,19 +68,11 @@
             clear: both;
             padding: 15px;
             font-size: 10px;
-            background-color: #dfe4ea;
+            background-color: #ced6e0;
         }
 
         .contenido {
             padding: 5px;
-        }
-
-        .texto {
-            padding: 20px;
-            margin-bottom: 15px;
-            width: 50%;
-            font-size: 18px;
-            color: #2f3542;
         }
 
         #name {
@@ -79,6 +83,10 @@
             display: block;
             transition: 0.3s;
         }
+
+        textarea {
+	        resize: none;
+        }  
 
         /* The side navigation menu */
         .sidenav {
@@ -207,7 +215,6 @@
         <a href="{{ url_for('account') }}">Account</a>
         <strong id="name">{{ current_user.name }}</strong>
         <a href="{{ url_for('logout') }}">Logout</a>
-        <a href="#">Info Cuenta</a>
         <a href="{{ url_for('wallet') }}">Wallet</a>
         <a href="{{ url_for('contract') }}">Contracts</a>
         <a href="#">Buy</a>
@@ -215,8 +222,8 @@
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-container">
-            <a href="#">Crear contrato</a>
-            <a href="#">Contratos creados</a>
+            <a href="{{ url_for('contract') }}">Create contract</a>
+            <a href="#">My contracts</a>
         </div>
         {% endif %}
     </div>
