@@ -126,19 +126,17 @@ def wallet():
 @app.route("/buy/<id>", methods=['GET','POST'])
 @login_required
 def buy(id):
-    contract = Contract.get_by_id(id)
-    user = User.get_by_id(current_user.id)
 
-    walletV =  Wallet.get_by_idownerunico(contract.owner_id)
-    acctV = w3.eth.account.privateKeyToAccount(walletV.key)
+    contract = Contract.get_by_id(id) #instancio contrato 
+    user = User.get_by_id(current_user.id) #instancio comprador
+
+    walletV =  Wallet.get_by_idownerunico(contract.owner_id) 
+    acctV = w3.eth.account.privateKeyToAccount(walletV.key) #direccion vendedor
+
     walletC = Wallet.get_by_idownerunico(current_user.id)
-    acctC = w3.eth.account.privateKeyToAccount(walletC.key)
-    print(acctC)
-    print(acctV)
+    acctC = w3.eth.account.privateKeyToAccount(walletC.key) #direccion comprador
 
-
-
-    signed_txn = w3.eth.account.signTransaction(dict(
+    signed_txn = w3.eth.account.signTransaction(dict( #transaccion
     nonce=w3.eth.getTransactionCount(str(acctC.address)),
     gasPrice = w3.eth.gasPrice, 
     gas = 100000,
@@ -146,8 +144,8 @@ def buy(id):
     value=w3.toWei(int(contract.price),'Wei')
   ),
   str(walletV.key))
-    hash =  w3.eth.sendRawTransaction(signed_txn.rawTransaction)
+    flash('Contract adquired')
 
-    return render_template('newContract.html', hash=hash)
+    return render_template('newContract.html')
 
 

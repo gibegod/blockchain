@@ -3,5 +3,9 @@
 {% block title %}Creacion finalizada{% endblock %} 
 
 {% block content %}
-   <p>{{hash}}</p> 
+{% for message in get_flashed_messages() %}
+<div class="alert alert-warning">
+    {{ message }}
+</div>
+{% endfor %} 
 {% endblock %} 
