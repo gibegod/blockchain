@@ -7,11 +7,11 @@ from forms import SignupForm, LoginForm, ContractForm, WalletForm
 import json
 from web3 import Web3, HTTPProvider
 from web3.contract import ConciseContract
-from deployContract import newContract, movementHash, w3 #contractAccount
+from deployContract import newContract, movementHash, w3, abi #contractAccount
 
 app = Flask(__name__, static_folder = "./fronted/dist/static", template_folder = "./fronted/dist")
 app.config['SECRET_KEY'] = '7110c8ae51a4b5af97be6534caef90e4bb9bdcb3380af008f90b23a5d1616bf319bc298105da20fe'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/mercadoblockchain'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/mercadoblockchain'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -135,17 +135,22 @@ def buy(id):
 
     walletC = Wallet.get_by_idownerunico(current_user.id)
     acctC = w3.eth.account.privateKeyToAccount(walletC.key) #direccion comprador
-
-    signed_txn = w3.eth.account.signTransaction(dict( #transaccion
+  
+    signed_txn = w3.eth.account.signTransaction(dict(
     nonce=w3.eth.getTransactionCount(str(acctC.address)),
-    gasPrice = w3.eth.gasPrice, 
-    gas = 100000,
+    gasPrice=w3.eth.gasPrice,
+    gas=100000,
     to=str(acctV.address),
-    value=w3.toWei(int(contract.price),'Wei')
+    value=int(contract.price),
+    data=b'',
   ),
-  str(walletV.key))
+  str(walletV.key),
+)
+    tx_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction)
+    tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+    hash = w3.toHex(tx_receipt['transactionHash'])
     flash('Contract adquired')
 
-    return render_template('newContract.html')
+    return render_template('newContract.html', hash=hash)
 
 
