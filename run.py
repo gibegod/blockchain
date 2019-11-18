@@ -151,8 +151,18 @@ def update(id):
         Contract.update_price(contract, price)
         flash ('Contrato actualizado')
         return render_template('myaccount.html')
+
     flash ('No se pudo actualizar el contrato')
     return render_template('contract.html')
+
+@app.route("/delete/<id>", methods=['GET','POST'] )
+@login_required
+def delete(id):
+    contract = Contract.get_by_id(id)
+    db.session.delete(contract)
+    db.session.commit()
+    flash('Contrato eliminado')
+    return redirect (url_for('contract'))
 
 @app.route("/buy/<id>", methods=['GET','POST'])
 @login_required
@@ -191,7 +201,13 @@ def buy(id):
     #hash2 = w3.toHex(tx_receipt2['transactionHash'])
 
     flash('Contract adquired')
-    return render_template('newContract.html', hash=hash, hash2 = hash2)
+    return render_template('newContract.html', hash=hash) #hash2 = hash2
+
+@app.route("/contratosdisponibles" , methods=['GET'])
+@login_required
+def contratosdisponibles():
+    contracts = Contract.get_all()
+    return render_template('contratosdisponibles.html', contracts=contracts)
         
 
 

@@ -114,6 +114,7 @@ class Contract(db.Model):
         db.session.execute(stmt)
         db.session.commit()
 
+
 class Wallet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable = False)
