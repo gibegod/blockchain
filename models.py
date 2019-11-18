@@ -2,6 +2,7 @@ from flask import url_for
 from flask_login import UserMixin
 from slugify import slugify
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy import update
 from werkzeug.security import generate_password_hash, check_password_hash
 from run import db
 
@@ -68,6 +69,10 @@ class Contract(db.Model):
     @staticmethod
     def get_by_idowner(owner_id):
         return Contract.query.filter_by(owner_id=owner_id).all()
+    
+    @staticmethod
+    def update_idowner(self, owner_id):
+        update(Contract).where(Contract.id==self.id).values(owner_id= owner_id)
 
     @staticmethod
     def get_by_id(id):

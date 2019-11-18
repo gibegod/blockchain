@@ -129,28 +129,31 @@ def buy(id):
 
     contract = Contract.get_by_id(id) #instancio contrato 
     user = User.get_by_id(current_user.id) #instancio comprador
+    if (contract.owner_id == current_user.id):
+        flash('Usted es el dueño de este contrato')
+        return render_template('newContract.html') 
 
     walletV =  Wallet.get_by_idownerunico(contract.owner_id) 
     acctV = w3.eth.account.privateKeyToAccount(walletV.key) #direccion vendedor
 
     walletC = Wallet.get_by_idownerunico(current_user.id)
     acctC = w3.eth.account.privateKeyToAccount(walletC.key) #direccion comprador
-  
     signed_txn = w3.eth.account.signTransaction(dict(
     nonce=w3.eth.getTransactionCount(str(acctC.address)),
     gasPrice=w3.eth.gasPrice,
     gas=100000,
-    to=str(acctV.address),
+    to=str(acctV.address),  
     value=int(contract.price),
     data=b'',
-  ),
-  str(walletV.key),
-)
+    ),
+    str(walletC.key),
+    )
     tx_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction)
     tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
     hash = w3.toHex(tx_receipt['transactionHash'])
+    #contract.update().where(contract.c.id==walletV.owner_id).values(owner_id = walletC.owner_id)
     flash('Contract adquired')
-
     return render_template('newContract.html', hash=hash)
+        
 
 

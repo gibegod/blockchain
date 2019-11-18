@@ -3,7 +3,6 @@
 {% block title %}Compra finalizada{% endblock %} 
 
 {% block content %}
-<p>Hash de transaccion: {{hash}}</p>
 {% for message in get_flashed_messages() %}
 <div class="alert alert-warning">
     {{ message }}
